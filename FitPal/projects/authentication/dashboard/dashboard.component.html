@@ -1,7 +1,7 @@
 <!-- Top navigation -->
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-sm-3 col-md-2 mr-0">
-    <img class="brand-logo" src="assets/logo-positronx-white.svg" alt="positronX.io Logo">
+    <img class="brand-logo" src="assets/logo-positronx-white.svg" alt="FitPal Logo">
   </a>
 </nav>
 <!-- Sidebar navigation -->
@@ -18,7 +18,8 @@
           <!-- Calling SignOut() Api from AuthService -->
           <li class="nav-item">
             <a class="nav-link" (click)="authService.SignOut()">
-              <i class="fas fa-sign-out-alt"></i>Log out
+              <i class="fas fa-sign-out-alt"></i>
+              Log out
             </a>
           </li>
         </ul>
@@ -30,8 +31,11 @@
         <div class="pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">User Profile</h1>
         </div>
+        <google-map>
+
+        </google-map>
         <!-- Show user data when logged in -->
-        <div class="row" *ngIf="authService.userData as user">
+        <!-- <div class="row" *ngIf="authService.userData as user">
           <div class="col-md-12">
             <div class="media">
               <img class="align-self-start mr-5 img-thumbnail rounded-circle" src="{{(user.photoURL) ? user.photoURL : '/assets/dummy-user.png'}}"
@@ -44,7 +48,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </main>
   </div>

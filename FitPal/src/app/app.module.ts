@@ -14,6 +14,7 @@ import { SignUpComponent } from 'projects/authentication/sign-up/sign-up.compone
 import { ForgotPasswordComponent } from 'projects/authentication/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from 'projects/authentication/verify-email/verify-email.component';
 import { AuthService } from 'shared/services/authorization/auth.service';
+import { GoogleMapsModule } from '@angular/google-maps'
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { AuthService } from 'shared/services/authorization/auth.service';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+    GoogleMapsModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
