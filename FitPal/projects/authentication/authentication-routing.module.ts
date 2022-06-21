@@ -6,11 +6,12 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { AuthGuard } from 'src/app/shared/guard/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/sign-in',
+    redirectTo: 'sign-in',
     pathMatch: 'full'
   },
   {
@@ -23,7 +24,8 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'forgot-password',

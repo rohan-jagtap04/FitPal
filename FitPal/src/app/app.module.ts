@@ -13,6 +13,7 @@ import { SignInComponent } from 'projects/authentication/sign-in/sign-in.compone
 import { SignUpComponent } from 'projects/authentication/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from 'projects/authentication/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from 'projects/authentication/verify-email/verify-email.component';
+import { AuthService } from 'shared/services/authorization/auth.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { VerifyEmailComponent } from 'projects/authentication/verify-email/verif
     AngularFireStorageModule,
     AngularFireDatabaseModule,
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
