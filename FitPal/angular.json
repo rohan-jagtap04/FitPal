@@ -107,5 +107,7 @@
       }
     }
   },
-  "defaultProject": "FitPal"
+  "cli": {
+    "analytics": "ac9e7225-db9a-4de4-b839-6eb717c9174c"
+  }
 }
