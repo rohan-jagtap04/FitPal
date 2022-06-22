@@ -115,5 +115,8 @@
       }
     }
   },
-  "defaultProject": "FitPal"
+  "defaultProject": "FitPal",
+  "cli": {
+    "analytics": "e2968269-9f3d-441a-90dc-6a8313ce27cc"
+  }
 }
