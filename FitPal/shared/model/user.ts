@@ -8,3 +8,7 @@ export interface User {
   gymfriends: string[]; //store other users UID
 
 }
+
+export interface UserState {
+  students: User[];
+}

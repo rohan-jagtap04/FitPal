@@ -19,7 +19,7 @@ const routes: Routes = [
     component: SignInComponent
   },
   {
-    path: 'register-user',
+    path: 'sign-up',
     component: SignUpComponent
   },
   {
@@ -32,7 +32,7 @@ const routes: Routes = [
     component: ForgotPasswordComponent
   },
   {
-    path: 'verify-email-address',
+    path: 'verify-email',
     component: VerifyEmailComponent
   },
 ];

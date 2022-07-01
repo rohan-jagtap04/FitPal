@@ -8,18 +8,19 @@ import {
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { NgZone } from '@angular/core';
+import { Observable, of, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   userData: any;
-
+  dbQuery$: Observable<User[]>;
   constructor(
-    public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
-    public ngZone: NgZone // NgZone service to remove outside scope warning
+    public ngZone: NgZone, // NgZone service to remove outside scope warning
+    private db: AngularFirestore
   ){
     this.afAuth.authState.subscribe((user) => {
       if (user) {
@@ -31,6 +32,7 @@ export class AuthService {
         JSON.parse(localStorage.getItem('user')!);
       }
     });
+    this.dbQuery$ = of([]);
   }
   // Sign in with email/password
   SignIn(email: string, password: string) {
@@ -40,21 +42,27 @@ export class AuthService {
         // this.ngZone.run(() => {
         //   this.router.navigate(['../dashboard']);
         // });
-        this.SetUserData(result.user);
+        this.setUser(email).subscribe((res:any) => {
+          this.userData = res;
+        });
       })
       .catch((error) => {
         window.alert(error.message);
       });
   }
   // Sign up with email/password
-  SignUp(email: string, password: string) {
+  SignUp(email: string, password: string, displayName: string, retypedPassword: string) {
+    if(password !== retypedPassword){
+      window.alert("Password and Retyped Password do not match.");
+      return;
+    }
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
         /* Call the SendVerificaitonMail() function when new user sign
         up and returns promise */
         this.SendVerificationMail();
-        this.CreateUserData(result.user);
+        this.CreateUserData(result.user, displayName);
       })
       .catch((error) => {
         window.alert(error.message);
@@ -65,7 +73,7 @@ export class AuthService {
     return this.afAuth.currentUser
       .then((u: any) => u.sendEmailVerification())
       .then(() => {
-        this.router.navigate(['verify-email-address']);
+        this.router.navigate(['authentication/verify-email']);
       });
   }
   // Reset Forggot password
@@ -110,7 +118,7 @@ export class AuthService {
   sign up with username/password and sign in with social auth
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
   SetUserData(user: any) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+    const userRef: AngularFirestoreDocument<any> = this.db.doc(
       `users/${user.uid}`
     );
     const userData: User = {
@@ -125,27 +133,35 @@ export class AuthService {
     return userRef.set(userData, { merge: true });
   }
 
-  CreateUserData(user: any){
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+  CreateUserData(user: any, displayName: string){
+    const userRef: AngularFirestoreDocument<any> = this.db.doc(
       `users/${user.uid}`
     );
-    const userData: User = {
+    this.userData = {
       uid: (user.uid !== "") ? user.uid : "",
       email: (user.email !== "") ? user.email : "",
-      displayName: (user.displayName !== null) ? user.displayName : "",
+      displayName: displayName,
       photoURL: (user.photoURL !== null) ? user.photoURL : "",
       emailVerified: user.emailVerified,
       locations: [],
       gymfriends: []
     };
-    return userRef.set(userData, { merge: true });
+    return userRef.set(this.userData, { merge: true });
   }
   // Sign out
   SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
+      // this.router.navigate(['sign-in']);
     });
+  }
+
+  getAllUsersWithName(queryString: string){
+      return this.db.collection('users', ref => ref.where('displayName', '==', queryString).limit(5)).valueChanges()
+  }
+
+  setUser(email: string){
+    return this.db.collection('users', ref => ref.where('email', '==', email).limit(1)).valueChanges();
   }
 }
 

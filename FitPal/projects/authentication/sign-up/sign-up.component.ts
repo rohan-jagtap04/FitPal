@@ -14,9 +14,9 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  redirectOnSignUp(email: HTMLInputElement, password: HTMLInputElement){
-    this.authService.SignUp(email.value, password.value).then(() => {
-      this.router.navigate(['authentication/verify-email-address']).catch((err) => console.log(err));
+  redirectOnSignUp(email: HTMLInputElement, password: HTMLInputElement, displayName: HTMLInputElement, retypedPassword: HTMLInputElement){
+    this.authService.SignUp(email.value, password.value, displayName.value, retypedPassword.value)!.then(() => {
+      // this.router.navigate(['verify-email']).catch((err) => console.log(err));
     }).catch(err => {
       alert(`Error: ${err}`);
     });
