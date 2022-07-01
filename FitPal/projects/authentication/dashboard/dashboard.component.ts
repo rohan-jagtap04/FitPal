@@ -1,8 +1,10 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, Output } from '@angular/core';
 import { AuthService } from 'shared/services/authorization/auth.service';
 import { Loader } from "@googlemaps/js-api-loader";
 import { Observable, of } from 'rxjs';
 import { User } from 'shared/model/user';
+import { EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,14 +17,15 @@ export class DashboardComponent implements OnInit {
   searchTermEmpty: boolean;
   userProfileClicked: boolean;
   dbQueryData: any[];
+  user: any;
+  queryUser: any;
+  @Output() goingToUserUIDEvent = new EventEmitter();
 
-  constructor(public authService: AuthService, private cd: ChangeDetectorRef) {
+  constructor(public authService: AuthService, private cd: ChangeDetectorRef, private router: Router) {
     this.searchTerm = "";
     this.searchTermEmpty = false;
     this.userProfileClicked = true;
     this.dbQueryData = [];
-    console.log("User Display Name: ", this.authService.userData);
-
   }
 
   ngOnInit(): void {
@@ -83,8 +86,26 @@ export class DashboardComponent implements OnInit {
       this.authService.getAllUsersWithName(event.target.value).subscribe((res:any[]) => {
         this.dbQueryData = res;
         console.log(res);
+
+        if(res.length != 0){
+          this.user = res[0];
+        }else{
+          this.user = null;
+        }
       });
     }
+  }
+
+  goToUser(userUID: string){
+    console.log(this.dbQueryData);
+    if(this.dbQueryData != null){
+      this.authService.setUser(this.dbQueryData[0]);
+      AuthService.observedUser = this.dbQueryData[0];
+      this.router.navigate(['user']);
+    }else{
+      alert(`Error with null user`);
+    }
+
   }
 
 }

@@ -14,6 +14,8 @@ import { environment } from 'src/environments/environment';
 import { MessagingModule } from 'projects/messaging/messaging.module'
 import { StreamChatModule, StreamAutocompleteTextareaModule } from 'stream-chat-angular';
 import { TranslateModule } from '@ngx-translate/core';
+import { UserProfileModule } from 'projects/user-profile/user-profile.module';
+import { AuthenticationModule } from 'projects/authentication/authentication.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { TranslateModule } from '@ngx-translate/core';
     AngularFireDatabaseModule,
     GoogleMapsModule,
     MessagingModule,
+    UserProfileModule,
+    AuthenticationModule,
     StreamChatModule,
     StreamAutocompleteTextareaModule,
     TranslateModule.forRoot()

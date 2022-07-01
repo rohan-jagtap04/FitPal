@@ -26,6 +26,9 @@ import { FormsModule } from '@angular/forms';
     GoogleMapsModule,
     NgSelectModule,
     FormsModule
+  ],
+  exports: [
+    DashboardComponent
   ]
 })
 export class AuthenticationModule { }

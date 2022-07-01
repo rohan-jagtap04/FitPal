@@ -16,6 +16,7 @@ import { Observable, of, switchMap } from 'rxjs';
 export class AuthService {
   userData: any;
   dbQuery$: Observable<User[]>;
+  public static observedUser: User;
   constructor(
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
@@ -59,7 +60,7 @@ export class AuthService {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        /* Call the SendVerificaitonMail() function when new user sign
+        /* Call the SendVerificationMail() function when new user sign
         up and returns promise */
         this.SendVerificationMail();
         this.CreateUserData(result.user, displayName);
@@ -87,7 +88,7 @@ export class AuthService {
         window.alert(error);
       });
   }
-  // Returns true when user is looged in and email is verified
+  // Returns true when user is logged in and email is verified
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
     return user !== null && user.emailVerified !== false ? true : false;
@@ -127,8 +128,8 @@ export class AuthService {
       displayName: (user.displayName !== null) ? user.displayName : "",
       photoURL: (user.photoURL !== null) ? user.photoURL : "",
       emailVerified: user.emailVerified,
-      locations: [],
-      gymfriends: []
+      locations: user.locations,
+      gymfriends: user.gymfriends
     };
     return userRef.set(userData, { merge: true });
   }
@@ -158,6 +159,10 @@ export class AuthService {
 
   getAllUsersWithName(queryString: string){
       return this.db.collection('users', ref => ref.where('displayName', '==', queryString).limit(5)).valueChanges()
+  }
+
+  getUserWithUID(UID: string){
+    return this.db.collection('users', ref => ref.where('uid', '==', UID)).valueChanges()
   }
 
   setUser(email: string){
