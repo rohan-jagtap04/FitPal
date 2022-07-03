@@ -11,7 +11,7 @@
               <div class="hidden md:block">
                 <div class="ml-10 flex items-baseline space-x-4">
                   <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                  <a href="#" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a>
+                  <a href="authentication/dashboard" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a>
 
                   <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Team</a>
 
@@ -41,10 +41,10 @@
                     <!-- <ng-container *ngIf="dbQueryData.length"> -->
                       <ul>
                         <li>
-                          <div class="origin-top-right absolute right-0 mt-2 w-60 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"  role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-                            <!-- Active: "bg-gray-100", Not Active: "" -->
+                          <!-- <div class="origin-top-right absolute right-0 mt-2 w-60 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"  role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                            Active: "bg-gray-100", Not Active: ""
                             <a class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2" >Welcome</a>
-                          </div>
+                          </div> -->
                         </li>
                       </ul>
                     <!-- </ng-container> -->
@@ -58,7 +58,7 @@
                   <span class="sr-only">View notifications</span>
                   <!-- Heroicon name: outline/bell -->
                   <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                    <path stroke-linecap="round" stroke-line join="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                   </svg>
                 </button>
 
@@ -160,68 +160,78 @@
         </div>
       </nav>
 
-      <header class="bg-white shadow">
+      <!-- <header class="bg-white shadow">
         <div *ngIf="user as user" class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
           <h1 class="text-3xl font-bold text-gray-900">Welcome, {{user.displayName}}</h1>
         </div>
-      </header>
+      </header> -->
+      <!-- <div class="pb-5">
+
+      </div> -->
       <main>
-        <div *ngIf="user as user" class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-          <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-            <div class="px-4 py-5 sm:px-6">
-              <h3 class="text-lg leading-6 font-medium text-gray-900">Applicant Information</h3>
-              <p class="mt-1 max-w-2xl text-sm text-gray-500">Personal details and application.</p>
+        <div class="w-full flex mx-auto py-6 sm:px-6 lg:px-8  border-b-2 border-gray-200">
+          <div *ngIf="user as user" class="flex-shrink-0 ml-40 mr-80 flex items-center justify-center">
+            <img class="h-20 w-20 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+            <h1 class="pl-10 text-3xl text-gray-800">{{user.displayName}}</h1>
+            <div class="pl-20 text-center text-gray-800">
+              <h2 class="text-3xl">0</h2>
+              <p>Gym Friends</p>
             </div>
-            <div class="border-t border-gray-200">
-              <dl>
-                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                  <dt class="text-sm font-medium text-gray-500">Full name</dt>
-                  <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{user.displayName}}</dd>
+            <div class="pl-10 text-center text-gray-800">
+              <h2 class="text-3xl">0</h2>
+              <p>Locations</p>
+            </div>
+            <div class="pl-10 text-center text-gray-800">
+              <h2 class="text-3xl">0</h2>
+              <p>Gym Friends</p>
+            </div>
+          </div>
+          <div class="flex items-center justify-center mr-40">
+            <button class="bg-gray-800 text-white p-4 rounded-lg"> Add Gymfriend </button>
+          </div>
+        </div>
+        <div  class="flex max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+          <div class="overflow-hidden sm:rounded-lg">
+            <div *ngIf="user as user" class="flex flex-wrap sm:flex-no-wrap items-center justify-between w-full h-full">
+
+              <div class="w-full sm:w-1/3 p-5 rounded-t sm:rounded-l sm:rounded-t-none border-gray-800">
+                <div class="card w-96 bg-base-100 shadow-xl">
+                  <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
+                  <div class="card-body text-white">
+                    <h2 class="card-title text-center">Gym Friends</h2>
+                    <p class="text-left">View {{user.displayName}}'s Gym Friends?</p>
+                    <div class="card-actions justify-end">
+                      <button class="btn btn-primary items-center">View</button>
+                    </div>
+                  </div>
                 </div>
-                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                  <dt class="text-sm font-medium text-gray-500">Email address</dt>
-                  <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{user.email}}</dd>
+              </div>
+
+              <div class="w-full sm:w-1/3 p-5 rounded-t sm:rounded-l sm:rounded-t-none border-gray-800">
+                <div class="card w-96 bg-base-100 shadow-xl">
+                  <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
+                  <div class="card-body content-center text-white">
+                    <h2 class="card-title">Locations</h2>
+                    <p class="text-left">View {{user.displayName}}'s Past Gym Locations?</p>
+                    <div class="card-actions justify-end">
+                      <button class="btn btn-primary">View</button>
+                    </div>
+                  </div>
                 </div>
-                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                  <dt class="text-sm font-medium text-gray-500">Gym Friends</dt>
-                  <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{user.gymfriends}}</dd>
+              </div>
+
+              <div class="w-full sm:w-1/3 p-5 rounded-t sm:rounded-l sm:rounded-t-none border-gray-800">
+                <div class="card w-96 bg-base-100 shadow-xl">
+                  <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
+                  <div class="card-body text-white">
+                    <h2 class="card-title">Gym Friends</h2>
+                    <p class="text-left">View {{user.displayName}}'s Gym Friends?</p>
+                    <div class="card-actions justify-end">
+                      <button class="btn btn-primary">View</button>
+                    </div>
+                  </div>
                 </div>
-                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                  <dt class="text-sm font-medium text-gray-500">About</dt>
-                  <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud pariatur mollit ad adipisicing reprehenderit deserunt qui eu.</dd>
-                </div>
-                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                  <dt class="text-sm font-medium text-gray-500">Attachments</dt>
-                  <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    <ul role="list" class="border border-gray-200 rounded-md divide-y divide-gray-200">
-                      <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                        <div class="w-0 flex-1 flex items-center">
-                          <!-- Heroicon name: solid/paper-clip -->
-                          <svg class="flex-shrink-0 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd" />
-                          </svg>
-                          <span class="ml-2 flex-1 w-0 truncate"> resume_back_end_developer.pdf </span>
-                        </div>
-                        <div class="ml-4 flex-shrink-0">
-                          <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500"> Download </a>
-                        </div>
-                      </li>
-                      <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                        <div class="w-0 flex-1 flex items-center">
-                          <!-- Heroicon name: solid/paper-clip -->
-                          <svg class="flex-shrink-0 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd" />
-                          </svg>
-                          <span class="ml-2 flex-1 w-0 truncate"> coverletter_back_end_developer.pdf </span>
-                        </div>
-                        <div class="ml-4 flex-shrink-0">
-                          <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500"> Download </a>
-                        </div>
-                      </li>
-                    </ul>
-                  </dd>
-                </div>
-              </dl>
+              </div>
             </div>
           </div>
         </div>

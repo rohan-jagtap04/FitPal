@@ -12,7 +12,16 @@ export class UserProfileComponent implements OnInit {
   user: any;
 
   constructor(public authService: AuthService) {
-    this.user = AuthService.observedUser;
+    // this.user = AuthService.observedUser;
+    this.user = {
+      "displayName": "Roger",
+      "email": "t@gmail.com",
+      "emailVerified": false,
+      "gymfriends": [],
+      "locations": [],
+      "photoURL": "",
+      "uid": "7ydLnJnNdwSzyCffawyly9XQptC2"
+    }
   }
 
   ngOnInit(): void {
